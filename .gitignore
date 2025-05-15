@@ -5,3 +5,5 @@
 
 *.html
 *.Rproj
+
+.DS_Store
