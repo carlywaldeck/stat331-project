@@ -5,6 +5,15 @@ editor: visual
 author: Joseph Piini
 ---
 
+```{r}
+
+gdp <- read.csv("gdp_pcap.csv")
+
+
+```
+
+
+
 ## Introduction
 
 **Proposal**
