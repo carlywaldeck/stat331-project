@@ -9,10 +9,8 @@ author: Joseph Piini
 
 gdp <- read.csv("gdp_pcap.csv")
 
-
+gdp <- read.csv("food_supply_kilocalories_per_person_and_day.csv")
 ```
-
-
 
 ## Introduction
 
