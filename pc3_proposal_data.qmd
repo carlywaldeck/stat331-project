@@ -5,11 +5,10 @@ editor: visual
 author: Joseph Piini
 ---
 
-```{r}
+```{r loading_data}
 
 gdp <- read.csv("gdp_pcap.csv")
-
-
+food_supply <- read.csv("food_supply_kilocalories_per_person_and_day.csv")
 ```
 
 ## Introduction
