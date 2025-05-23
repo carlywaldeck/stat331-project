@@ -68,3 +68,11 @@ data_joined <- gdp_longer |>
 **Data Cleaning Process**
 
 *Discuss any data cleaning process and decisions that may impact the analysis.*
+
+## References
+
+\[1\] GapMinder, “GD001,” *Gapminder.org*, 2011. https://www.gapminder.org/data/documentation/gd001/
+
+\[2\] Food and Agriculture Organization of the United Nations, “FAOSTAT,” *www.fao.org*, 2024. https://www.fao.org/faostat/en/#home
+
+‌
