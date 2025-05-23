@@ -5,7 +5,8 @@ editor: visual
 author: Anne Johnson, Carly Waldeck, David Roth, Joseph Piini
 ---
 
-```{r loading_data}
+```{r setup}
+library(tidyverse)
 
 gdp <- read.csv("gdp_pcap.csv")
 food_supply <- read.csv("food_supply_kilocalories_per_person_and_day.csv")
@@ -24,12 +25,34 @@ TBD
 ## Data Cleaning
 
 ```{r data_cleaning}
+# Joining datasets to include one obs. per country/year combination
+
+gdp_longer <- gdp |>
+  mutate(across(.cols = !country,
+                .fns = ~as.numeric(.x))) |>
+  pivot_longer(cols = !country,
+               names_to = "year")
+
+food_supply_longer <- food_supply |>
+  mutate(across(.cols = !country,
+                .fns = ~as.numeric(.x))) |>
+  pivot_longer(cols = !country,
+               names_to = "year")
+
+data_joined <- gdp_longer |>
+  inner_join(food_supply_longer,
+             join_by(country, year)) |>
+  rename(gdp_pcap = "value.x",
+         food_supply = "value.y") |>
+  drop_na() |>
+  mutate(year = as_factor(str_extract(year, pattern = "[:digit:]{1,}")),
+         country = as_factor(country))
 
 ```
 
 ## Discussion
 
-**Hypothesizd Relationship**
+**Hypothesized Relationship**
 
 *Provide an explanation for why you think they would have that relationship (including at least one outside source).*
 
