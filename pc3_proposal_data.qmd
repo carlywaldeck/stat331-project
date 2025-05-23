@@ -1,8 +1,17 @@
 ---
 title: "PC3: Project Proposal + Data"
-format: html
-editor: visual
 author: Anne Johnson, Carly Waldeck, David Roth, Joseph Piini
+format: 
+  html:
+    embed-resources: true
+    code-tools: true
+    toc: true
+editor: source
+execute: 
+  error: true
+  echo: true
+  message: false
+  warning: false
 ---
 
 ```{r setup}
@@ -40,7 +49,7 @@ food_supply_longer <- food_supply |>
                names_to = "year")
 
 data_joined <- gdp_longer |>
-  inner_join(food_supply_longer,
+  inner_join(food_supply_longer, # only include matching rows
              join_by(country, year)) |>
   rename(gdp_pcap = "value.x",
          food_supply = "value.y") |>
