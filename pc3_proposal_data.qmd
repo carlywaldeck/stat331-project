@@ -2,7 +2,7 @@
 title: "PC3: Project Proposal + Data"
 format: html
 editor: visual
-author: Joseph Piini
+author: Anne Johnson, Carly Waldeck, David Roth, Joseph Piini
 ---
 
 ```{r loading_data}
@@ -19,6 +19,20 @@ TBD
 
 **Summary of Data**
 
-TDB
+TBD
 
 ## Data Cleaning
+
+```{r data_cleaning}
+
+```
+
+## Discussion
+
+**Hypothesizd Relationship**
+
+*Provide an explanation for why you think they would have that relationship (including at least one outside source).*
+
+**Data Cleaning Process**
+
+*Discuss any data cleaning process and decisions that may impact the analysis.*
