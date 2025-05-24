@@ -29,7 +29,11 @@ TBD
 
 **Summary of Data**
 
-TBD
+Our team will explore two datasets in our analysis: Gross domestic product (GDP) per capita and food supply. 
+
+GDP per capita provides a measure of a country's total economic output, divided by the nation's population. The variable is adjusted for inflation by fixing prices to 2017 dollars, and measured in Purchasing Power Parity (PPP) dollars. PPP dollars offer a virtual currency used to facilitate international economic comparisons. The dataset contains observations for 195 countries, providing estimates spanning from 1800 to 2100.
+
+The food supply dataset, sourced from the United Nation's Food and Agriculture Organization, provides insight into a country's food security and nutritional status. The dataset offers annual observations of a country's food supply by measuring kilocalories per person per day. The dataset contains observations for 179 countries, spanning from 1961 to 2018. 
 
 ## Data Cleaning
 
@@ -68,6 +72,8 @@ data_joined <- gdp_longer |>
 **Data Cleaning Process**
 
 *Discuss any data cleaning process and decisions that may impact the analysis.*
+
+The food supply data contains sixteen more countries than the GDP data, so our analysis may be limited by the removal of these countries.
 
 ## References
 
