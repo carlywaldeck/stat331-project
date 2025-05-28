@@ -43,3 +43,24 @@ gdp_summary <- gdp |>
 
 food_gdp <- left_join(food_summary, gdp_summary, by = "country")
 ```
+
+```{r}
+## run linear regression
+model <- lm(average_gdp ~ avg_food, data = food_gdp)
+summary(model)
+```
+
+```{r}
+## scatterplot with line of best fit
+ggplot(data = food_gdp, aes(x = avg_food, y = average_gdp)) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(
+    title = "Average Food vs Average GDP",
+    x = "Average Food Supply",
+    y = "Average GDP"
+  ) +
+  theme_minimal()
+```
+
+## 2.3 Model Fit
