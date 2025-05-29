@@ -119,7 +119,9 @@ model <- lm(log(average_gdp) ~ log(avg_food), data = food_gdp)
 summary(model)
 ```
 
-A 1% increase in average food consumption is associated with approximately a 5.46% increase in average GDP.
+A 1% increase in average food consumption is associated with approximately a 5.56% increase in average GDP.
+
+log(predicted average gdp) = -34.0254 + 5.4567(log average food)
 
 ## 2.3 Model Fit
 
