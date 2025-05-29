@@ -73,7 +73,7 @@ data_joined <- gdp_longer |>
 
 *Discuss any data cleaning process and decisions that may impact the analysis.*
 
-The food supply data contains sixteen more countries than the GDP data, so our analysis may be limited by the removal of these countries.
+The food supply data contains sixteen more countries than the GDP data, so our analysis may be limited by the removal of these countries. 
 
 ## References
 
