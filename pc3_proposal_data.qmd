@@ -70,23 +70,15 @@ data_joined <- gdp_longer |>
 
 **Hypothesized Relationship**
 
-<<<<<<< HEAD
 We hypothesize that there will be a positive linear relationship with GDP and calories. Foremost, there is a positive linear association with GDP per capita and quality of life. Using this knowledge, that as GDP per capita increases, food abundance would increase, causing the number of calories consumed to also increase. Also, using GDP per capita as a measure of income, as income rises, one is able to afford more. Under the assumption of monotonicity, more is better, and the income effect, one would believe that an increase in overall income would allow people to buy more food (more is better) and have to work less (more time to leisure--eat).(Sands 2024). Furthermore, poorer nations, nations with less GDP per capita suffer more from malnutrition. 
-=======
-We hypothesize that there will be a positive linear relationship with GDP and calories. Foremost, there is a positive linear association with GDP per capita and quality of life. Using this knowledge, that as GDP per capita increases, food abundance would increase, causing the number of calories consumed to also increase. Also, using GDP per capita as a measure of income, as income rises, one is able to afford more. Under the assumption of monotonicity, more is better, and the income effect, one would believe that an increase in overall income would allow people to buy more food (more is better) and have to work less (more time to leisure--eat).(Sands 2024). Furthermore, poorer nations, nations with less GDP per capita suffer more from malnutrition.
->>>>>>> c0b26bb39f33a4ee26806744feb05369bbf8c0bb
 
 #https://www.worldbank.org/en/topic/nutrition/overview
 
 **Data Cleaning Process**
 
-<<<<<<< HEAD
-The food supply data contains sixteen more countries than the GDP data, so our analysis may be limited by the removal of these countries.
-=======
 The food supply data contains sixteen fewer countries than the GDP data, so our analysis may be limited by the removal of these countries. Additionally, the GDP dataset contains data for a much wider range of years (1800-2100) than the food supply dataset (1961-2018), and there are several observations within the food supply dataset that are missing values. Our data was cleaned to only include years and countries where both sets of data are available.
 
 After the data cleaning process, our dataset to be used moving forward contains a GDP per capita and food supply value for each observational unit (year/country combination). Our cleaned data includes 170 countries, spanning from 1961 to 2018.
->>>>>>> c0b26bb39f33a4ee26806744feb05369bbf8c0bb
 
 ## References
 
@@ -94,13 +86,6 @@ After the data cleaning process, our dataset to be used moving forward contains 
 
 \[2\] Food and Agriculture Organization of the United Nations, “FAOSTAT,” *www.fao.org*, 2024. https://www.fao.org/faostat/en/#home
 
-<<<<<<< HEAD
 \[3\] R. Sands, “Patterns of global food consumption expected to shift in next quarter century as population, incomes rise | Economic Research Service,” Jun. 20, 2024. https://www.ers.usda.gov/amber-waves/2024/june/patterns-of-global-food-consumption-expected-to-shift-in-next-quarter-century-as-population-incomes-rise (accessed May 23, 2025).
 
 \[4\] “Overview,” World Bank. https://www.worldbank.org/en/topic/nutrition/overview
-‌
-=======
-\[3\] R. Sands, “Patterns of global food consumption expected to shift in next quarter century as population, incomes rise \| Economic Research Service,” Jun. 20, 2024. https://www.ers.usda.gov/amber-waves/2024/june/patterns-of-global-food-consumption-expected-to-shift-in-next-quarter-century-as-population-incomes-rise (accessed May 23, 2025).
-
-\[4\] “Overview,” World Bank. https://www.worldbank.org/en/topic/nutrition/overview ‌
->>>>>>> c0b26bb39f33a4ee26806744feb05369bbf8c0bb
