@@ -116,7 +116,7 @@ animate(animation, width = 800, height = 600, nframes = 58, fps = 10)
 
 ```{r}
 ## run linear regression
-model <- lm(log(average_gdp) ~ log(avg_food), data = food_gdp)
+model <- lm(log(avg_food) ~ log(average_gdp), data = food_gdp)
 summary(model)
 ```
 
