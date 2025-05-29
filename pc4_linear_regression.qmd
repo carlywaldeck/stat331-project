@@ -95,8 +95,7 @@ data_joined <- gdp_longer |>
 
 data_joined_2 <- data_joined |>
   mutate(year = as.numeric(as.character(year)))
-
-animation <- ggplot(data_joined_2, aes(x = gdp_pcap, y = food_supply, color = country)) +
+animation <- ggplot(data_joined_2, aes(x = log(food_supply), y = log(gdp_pcap), color = country)) +
   geom_point(size = 3, show.legend = FALSE) +
   labs(
     title = "GDP vs Food Supply Over Time",
@@ -116,9 +115,13 @@ animate(animation, width = 800, height = 600, nframes = 58, fps = 10)
 
 ```{r}
 ## run linear regression
-model <- lm(log(average_gdp) ~ log(avg_food), data = food_gdp)
+model <- lm(log(avg_food) ~ log(average_gdp), data = food_gdp)
 summary(model)
 ```
+
+A 1% increase in average food consumption is associated with approximately a 5.56% increase in average GDP.
+
+log(predicted average gdp) = -34.0254 + 5.4567(log average food)
 
 ## 2.3 Model Fit
 
