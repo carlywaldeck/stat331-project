@@ -80,6 +80,15 @@ The food supply data contains sixteen fewer countries than the GDP data, so our 
 
 After the data cleaning process, our dataset to be used moving forward contains a GDP per capita and food supply value for each observational unit (year/country combination). Our cleaned data includes 170 countries, spanning from 1961 to 2018.
 
+*Discuss any data cleaning process and decisions that may impact the analysis.*
+
+The food supply data contains sixteen more countries than the GDP data, so our analysis may be limited by the removal of these countries. Additionally, the GDP dataset contains data for a much wider range of years (1800-2100) than the food supply dataset (1961-2018), and there are several observations within the food supply dataset that are missing values. Our data was cleaned to only include years and countries where both sets of data are available.
+
+After the data cleaning process, our dataset to be used moving forward contains a GDP per capita and food supply value for each observational unit (year/country combination). Our cleaned data includes 170 countries, spanning from 1961 to 2018.
+>>>>>>> c0b26bb39f33a4ee26806744feb05369bbf8c0bb
+>>>>>>> c2fb5577daa1d38a0e45eae4e0e3067621518b61
+>>>>>>> 291f43f00accb9b580115bbfb2ca7684eccffe2d
+
 ## References
 
 \[1\] GapMinder, “GD001,” *Gapminder.org*, 2011. https://www.gapminder.org/data/documentation/gd001/
