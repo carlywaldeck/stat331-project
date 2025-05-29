@@ -51,13 +51,13 @@ food_gdp <- left_join(food_summary, gdp_summary, by = "country")
 
 ```{r}
 ## scatterplot with line of best fit
-ggplot(data = food_gdp, aes(x = log(avg_food), y = log(average_gdp))) +
+ggplot(data = food_gdp, aes(x = log(average_gdp), y = log(avg_food))) +
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE, color = "red") +
   labs(
     title = "Average Food vs Average GDP",
-    x = "Average Food Supply",
-    y = "Average GDP"
+    x = "Average GDP",
+    y = "Average Food Supply"
   ) +
   theme_minimal()
 ```
@@ -96,13 +96,13 @@ data_joined <- gdp_longer |>
 data_joined_2 <- data_joined |>
   mutate(year = as.numeric(as.character(year)))
 
-animation <- ggplot(data_joined_2, aes(x = food_supply, y = gdp_pcap, color = country)) +
+animation <- ggplot(data_joined_2, aes(x = gdp_pcap, y = food_supply, color = country)) +
   geom_point(size = 3, show.legend = FALSE) +
   labs(
     title = "GDP vs Food Supply Over Time",
     subtitle = "Year: {frame_time}",
-    x = "Food Supply (kcal/person/day)",
-    y = "GDP per Capita (USD)"
+    x = "GDP per Capita (USD)",
+    y = "Food Supply (kcal/person/day)"
   ) +
   theme_minimal() +
   transition_time(year) +
