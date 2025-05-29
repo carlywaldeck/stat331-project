@@ -1,0 +1,150 @@
+---
+title: "PC4: Linear Regression"
+author: "Anne Johnson, Carly Waldeck, David Roth, Joseph Piini"
+format: html
+editor: visual
+embed-resources: true
+warning: FALSE
+---
+
+## Setup
+
+```{r}
+library(tidyverse)
+library(gganimate)
+library(gt)
+library(kableExtra)
+```
+
+```{r}
+# load in data
+food <- read_csv("food_supply_kilocalories_per_person_and_day.csv")
+gdp <- read_csv("gdp_pcap.csv")
+```
+
+## 2.1 Data Visualization
+
+```{r}
+## scatterplot with line of best fit
+ggplot(data = food_gdp, aes(x = log(avg_food), y = log(average_gdp))) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(
+    title = "Average Food vs Average GDP",
+    x = "Average Food Supply",
+    y = "Average GDP"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+# Joining datasets to include one obs. per country/year combination
+
+gdp_longer <- gdp |>
+  mutate(across(.cols = !country,
+                .fns = ~ case_when(str_detect(.x, "k") ~ as.numeric(str_remove(.x, "k")) * 1000, TRUE ~ as.numeric(.x)))) |>
+  pivot_longer(cols = !country,
+               names_to = "year")
+
+food_supply_longer <- food |>
+  mutate(across(.cols = !country,
+                .fns = ~as.numeric(.x))) |>
+  pivot_longer(cols = !country,
+               names_to = "year")
+
+data_joined <- gdp_longer |>
+  inner_join(food_supply_longer, # only include matching rows
+             join_by(country, year)) |>
+  rename(gdp_pcap = "value.x",
+         food_supply = "value.y") |>
+  drop_na() |>
+  mutate(year = as_factor(str_extract(year, pattern = "[:digit:]{1,}")),
+         country = as_factor(country))
+
+```
+
+```{r}
+#| eval: false
+
+# create animated scatterplot
+
+data_joined_2 <- data_joined |>
+  mutate(year = as.numeric(as.character(year)))
+
+animation <- ggplot(data_joined_2, aes(x = food_supply, y = gdp_pcap, color = country)) +
+  geom_point(size = 3, show.legend = FALSE) +
+  labs(
+    title = "GDP vs Food Supply Over Time",
+    subtitle = "Year: {frame_time}",
+    x = "Food Supply (kcal/person/day)",
+    y = "GDP per Capita (USD)"
+  ) +
+  theme_minimal() +
+  transition_time(year) +
+  ease_aes('linear')
+
+animate(animation, width = 800, height = 600, fps = 10)
+
+```
+
+## 2.2 Linear Regression
+
+```{r}
+# clean data then take mean of data from 2012-2018 so we have one x and one y value for each country
+
+food_summary <- food |>
+  select("country", "2012", "2013", "2014", "2015",
+         "2016", "2017", "2018") |>
+  mutate(avg_food = rowMeans(across(`2012`:`2018`), na.rm = TRUE))|> 
+  drop_na() |>
+  select(country, avg_food)
+
+gdp_summary <- gdp |>
+  select(country, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`) |>
+  mutate(across(`2012`:`2018`, ~ {
+    ifelse(str_detect(.x, "k$"),
+           as.numeric(str_remove(.x, "k")) * 1000,
+           as.numeric(.x)
+    )
+  })) |>
+  mutate(average_gdp = rowMeans(across(`2012`:`2018`), na.rm = TRUE)) |>
+  select(country, average_gdp)
+
+food_gdp <- left_join(food_summary, gdp_summary, by = "country")
+```
+
+```{r}
+## run linear regression
+model <- lm(log(average_gdp) ~ log(avg_food), data = food_gdp)
+summary(model)
+```
+
+## 2.3 Model Fit
+
+```{r}
+
+# find varience
+A <- var(food_gdp$average_gdp, na.rm = TRUE)     
+B <- var(fitted(model), na.rm = TRUE)                
+resid_var <- var(residuals(model), na.rm = TRUE)      
+r_squared <- B / A 
+
+# create table
+tibble(
+  Metric = c(
+    "Variance in response",
+    "Variance in fitted values",
+    "Variance in residuals",
+    "Model R²"
+  ),
+  Value = c(A, B, resid_var, r_squared)
+) |>
+  mutate(Value = round(Value, 2)) |>
+  kable(format = "html", caption = "Regression Summary Statistics") |>
+  kable_styling(bootstrap_options = c("hover", "condensed",
+                                      "responsive"), full_width = FALSE,
+                position = "left")
+
+```
+
+Our regression model accounts for 51% of the variability in the response. This means that 49% of the variability in GDP remains unexplained, suggesting that while the model captures some of the relationship, it does not provide a strong fit. Ideally the R\^2 value would be much higher, to indicate a more reliable and predictive model.
