@@ -96,7 +96,7 @@ data_joined <- gdp_longer |>
 data_joined_2 <- data_joined |>
   mutate(year = as.numeric(as.character(year)))
 
-animation <- ggplot(data_joined_2, aes(x = food_supply, y = gdp_pcap, color = country)) +
+animation <- ggplot(data_joined_2, aes(x = log(food_supply), y = log(gdp_pcap), color = country)) +
   geom_point(size = 3, show.legend = FALSE) +
   labs(
     title = "GDP vs Food Supply Over Time",
