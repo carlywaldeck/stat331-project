@@ -128,7 +128,7 @@ log(predicted average gdp) = -34.0254 + 5.4567(log average food)
 
 ```{r}
 
-# find varience
+# find variance
 A <- var(food_gdp$average_gdp, na.rm = TRUE)     
 B <- var(fitted(model), na.rm = TRUE)                
 resid_var <- var(residuals(model), na.rm = TRUE)      
