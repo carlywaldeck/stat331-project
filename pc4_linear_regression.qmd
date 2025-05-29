@@ -121,7 +121,7 @@ summary(model)
 
 A 1% increase in average food consumption is associated with approximately a 0.112% increase in average GDP.
 
-log(log average food) = 6.894996 + .112497(predicted average gdp)
+log(average food) = 6.894996 + .112497log(predicted average gdp)
 
 ## 2.3 Model Fit
 
