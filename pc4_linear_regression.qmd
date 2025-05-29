@@ -25,6 +25,30 @@ gdp <- read_csv("gdp_pcap.csv")
 ## 2.1 Data Visualization
 
 ```{r}
+# clean data then take mean of data from 2012-2018 so we have one x and one y value for each country
+
+food_summary <- food |>
+  select("country", "2012", "2013", "2014", "2015",
+         "2016", "2017", "2018") |>
+  mutate(avg_food = rowMeans(across(`2012`:`2018`), na.rm = TRUE))|> 
+  drop_na() |>
+  select(country, avg_food)
+
+gdp_summary <- gdp |>
+  select(country, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`) |>
+  mutate(across(`2012`:`2018`, ~ {
+    ifelse(str_detect(.x, "k$"),
+           as.numeric(str_remove(.x, "k")) * 1000,
+           as.numeric(.x)
+    )
+  })) |>
+  mutate(average_gdp = rowMeans(across(`2012`:`2018`), na.rm = TRUE)) |>
+  select(country, average_gdp)
+
+food_gdp <- left_join(food_summary, gdp_summary, by = "country")
+```
+
+```{r}
 ## scatterplot with line of best fit
 ggplot(data = food_gdp, aes(x = log(avg_food), y = log(average_gdp))) +
   geom_point() + 
@@ -88,30 +112,6 @@ animate(animation, width = 800, height = 600, fps = 10)
 ```
 
 ## 2.2 Linear Regression
-
-```{r}
-# clean data then take mean of data from 2012-2018 so we have one x and one y value for each country
-
-food_summary <- food |>
-  select("country", "2012", "2013", "2014", "2015",
-         "2016", "2017", "2018") |>
-  mutate(avg_food = rowMeans(across(`2012`:`2018`), na.rm = TRUE))|> 
-  drop_na() |>
-  select(country, avg_food)
-
-gdp_summary <- gdp |>
-  select(country, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`) |>
-  mutate(across(`2012`:`2018`, ~ {
-    ifelse(str_detect(.x, "k$"),
-           as.numeric(str_remove(.x, "k")) * 1000,
-           as.numeric(.x)
-    )
-  })) |>
-  mutate(average_gdp = rowMeans(across(`2012`:`2018`), na.rm = TRUE)) |>
-  select(country, average_gdp)
-
-food_gdp <- left_join(food_summary, gdp_summary, by = "country")
-```
 
 ```{r}
 ## run linear regression
