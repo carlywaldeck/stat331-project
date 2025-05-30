@@ -110,8 +110,11 @@ animation <- ggplot(data_joined_2, aes(x = log(gdp_pcap), y = log(food_supply), 
   ease_aes('linear')
 
 animate(animation, width = 800, height = 600, nframes = 58, fps = 10)
+anim_save("animation.gif", animation, width = 800, height = 600, nframes = 58, fps = 10)
 
 ```
+
+![](animation.gif)
 
 ## 2.2 Linear Regression
 
