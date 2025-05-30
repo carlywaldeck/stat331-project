@@ -4,7 +4,9 @@ author: "Anne Johnson, Carly Waldeck, David Roth, Joseph Piini"
 format: html
 editor: visual
 embed-resources: true
+code-tools: true
 warning: FALSE
+echo: false
 ---
 
 ## Setup
@@ -48,6 +50,7 @@ gdp_summary <- gdp |>
 
 food_gdp <- left_join(food_summary, gdp_summary, by = "country")
 ```
+
 We subsetted the data to only include data from 2012 to 2018, the six most recent years. Then, we took the mean of the data to get a single measurement of GPD per capita and food consumed. Thus, we obtained the average GDP per capita and average food consumed (kcal/person/day) for each country.
 
 ```{r}
@@ -111,7 +114,6 @@ animation <- ggplot(data_joined_2, aes(x = log(gdp_pcap), y = log(food_supply), 
 animate(animation, width = 800, height = 600, nframes = 58, fps = 10)
 
 ```
-
 
 ## 2.2 Linear Regression
 
