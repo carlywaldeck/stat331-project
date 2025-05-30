@@ -119,9 +119,13 @@ model <- lm(log(avg_food) ~ log(average_gdp), data = food_gdp)
 summary(model)
 ```
 
-A 1% increase in average GDP is associated with approximately a 0.112% increase in average food consumption.
+The following equation represents the fitted regression model, where $\widehat{food_i}$ represents the predicted average food supply (kcal/person/day) and $GDP_i$ represents average GDP per capita (USD).
 
-log(average food) = 6.894996 + .112497log(predicted average gdp)
+$log{(\widehat{food}_i)} = 6.895 + 0.1125\log{(GDP_i)}$
+
+A 1% increase in average GDP per capita is associated with approximately a 0.1125% increase in average food supply.
+
+The expected natural logarithm of average food supply is 6.8950 when the natural logarithm of average GDP per capita is zero.
 
 ## 2.3 Model Fit
 
