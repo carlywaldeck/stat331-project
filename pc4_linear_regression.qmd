@@ -9,9 +9,7 @@ warning: FALSE
 echo: false
 ---
 
-## Setup
-
-```{r}
+```{r load-libs}
 library(tidyverse)
 library(gganimate)
 library(gt)
@@ -19,7 +17,7 @@ library(kableExtra)
 library(gifski)
 ```
 
-```{r}
+```{r load-data}
 # load in data
 food <- read_csv("food_supply_kilocalories_per_person_and_day.csv")
 gdp <- read_csv("gdp_pcap.csv")
