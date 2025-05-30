@@ -121,7 +121,7 @@ summary(model)
 
 The following equation represents the fitted regression model, where $\widehat{food_i}$ represents the predicted average food supply (kcal/person/day) and $GDP_i$ represents average GDP per capita (USD).
 
-$\log{(\widehat{food}_i)} = 6.895 + 0.1125\log{(GDP_i)}$
+$$\log{(\widehat{food}_i)} = 6.895 + 0.1125\log{(GDP_i)}$$
 
 A 1% increase in average GDP per capita is associated with approximately a 0.1125% increase in average food supply.
 
