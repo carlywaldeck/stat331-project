@@ -118,19 +118,21 @@ anim_save("animation.gif", animation, width = 800, height = 600, nframes = 58, f
 
 ## 2.2 Linear Regression
 
-```{r}
+```{r, results='hide'}
 ## run linear regression
 model <- lm(log(avg_food) ~ log(average_gdp), data = food_gdp)
 summary(model)
 ```
 
+In order to better observe and quantify the relationship between food consumption and GDP per capita, a linear regression model was fit. The relationship between the original variables was not linear, so a logarithmic transformation was applied to both.
+
 The following equation represents the fitted regression model, where $\widehat{food_i}$ represents the predicted average food consumption (kcal/person/day) and $GDP_i$ represents average GDP per capita (USD).
 
 $$\log{(\widehat{food}_i)} = 6.895 + 0.1125\log{(GDP_i)}$$
 
-A 1% increase in average GDP per capita is associated with approximately a 0.1125% increase in average food consumption
+A 1% increase in average GDP per capita is associated with approximately a 0.1125% increase in average food consumption.
 
-The expected natural logarithm of average food supply is 6.8950 when the natural logarithm of average GDP per capita is zero. In a non-logarithmic scale, this corresponds to an expected average food supply of 987.3 kcal/person/day when average GDP per capita is \$1 USD.
+The expected natural logarithm of average food consumption is 6.895 when the natural logarithm of average GDP per capita is zero. In a non-logarithmic scale, this corresponds to an expected average food supply of 987.3 kcal/person/day when average GDP per capita is \$1 USD.
 
 ## 2.3 Model Fit
 
