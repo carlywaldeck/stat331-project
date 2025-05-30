@@ -127,11 +127,7 @@ $$\log{(\widehat{food}_i)} = 6.895 + 0.1125\log{(GDP_i)}$$
 
 A 1% increase in average GDP per capita is associated with approximately a 0.1125% increase in average food consumption
 
-<<<<<<< HEAD
-The expected natural logarithm of average food consumption is 6.8950 when the natural logarithm of average GDP per capita is zero.
-=======
 The expected natural logarithm of average food supply is 6.8950 when the natural logarithm of average GDP per capita is zero. In a non-logarithmic scale, this corresponds to an expected average food supply of 987.3 kcal/person/day when average GDP per capita is \$1 USD.
->>>>>>> 16ab8d11d452dd75b8834fdb302b30528075fba4
 
 ## 2.3 Model Fit
 
