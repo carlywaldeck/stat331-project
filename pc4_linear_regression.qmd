@@ -64,7 +64,7 @@ ggplot(data = food_gdp, aes(x = log(average_gdp), y = log(avg_food))) +
   theme_minimal()
 ```
 
-It can be seen from the scatterplot above that, after applying a logarithmic transformation, there is a moderate, positive, linear relationship between log(Average GDP) and log(Average Food Consumption) for the subsetted data from 2012-2018.
+It can be seen from the scatterplot above that, after applying a logarithmic transformation, there is a moderate, positive, linear relationship between log(Average GDP per Capita) and log(Average Food Consumption) for the subsetted data from 2012-2018.
 
 ```{r}
 # Joining datasets to include one obs. per country/year combination
@@ -120,7 +120,7 @@ anim_save("animation.gif", animation, width = 800, height = 600, nframes = 58, f
 
 ![](animation.gif)
 
-It can be seen that the relationship between log(GDP) and log(Food Consumption) initially is weak, positive, and linear, but evolves to a stronger, positive, linear relationship over time.
+It can be seen that the relationship between log(GDP per Capita) and log(Food Consumption) initially is weak, positive, and linear, but evolves to a stronger, positive, linear relationship over time.
 
 ## 2.2 Linear Regression
 
