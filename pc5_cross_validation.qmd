@@ -118,22 +118,19 @@ tibble(
 
 ```
 
-<<<<<<< HEAD
 
-## Cross Fold Validation
-
-```{r}
-k <- 10
-
-
-```
-
-=======
 ## 3.0 Cross Validation
 
 #### **3.1 Implement k-fold cross validation**
 
 ```{r}
+set.seed(123)
+k <- 10
+n <- nrow(food_gdp)
 
+food_gdp_rand <- food_gdp |> 
+  mutate(fold_random = sample(rep_len(1:k, length.out = n),
+                              size = n))
 ```
->>>>>>> 2076616330e302eaeb87d670bf2a24483dcb0f90
+
+
