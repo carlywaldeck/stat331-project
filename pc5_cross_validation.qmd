@@ -124,3 +124,12 @@ tibble(
 
 ```
 
+
+## Cross Fold Validation
+
+```{r}
+k <- 10
+
+
+```
+
