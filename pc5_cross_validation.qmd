@@ -118,7 +118,6 @@ tibble(
 
 ```
 
-
 ## 3.0 Cross Validation
 
 #### **3.1 Implement k-fold cross validation**
@@ -133,25 +132,28 @@ food_gdp_rand <- food_gdp |>
                               size = n))
 ```
 
-### R^2 on Each
+### R\^2 on Each
 
 ```{r}
 
-cv_r2 <- rep(NA, k)
-
-# trying things
-
-x <- sample(1:k, replace = F)
-
-
-cross <- function(x) {
-  fold_dat <- food_gdp_rand |> 
+cross <- function(x, food_gdp) {
+  fold_dat <- food_gdp |> 
     filter(fold_random == x)
-  train_dat <- food_gdp_rand |> 
+  train_dat <- food_gdp |> 
     filter(fold_random != x)
+  
+  model <- lm(log(avg_food) ~ log(average_gdp), data = train_dat)
+  
+  # generate predictions for the held-out fold data
+  fold_preds <- predict(model, newdata = fold_dat)
+  
+  cv_r2 <- var(fold_preds, na.rm = TRUE)/var(log(fold_dat$avg_food), na.rm = TRUE)
+  
 }
 
 
-cross(sample(1:k, replace = F))
+r_sq_k_fold <- map_dbl(.x = 1:10,
+                       .f = ~cross(.x, food_gdp_rand))
 
+mean(r_sq_k_fold)
 ```
