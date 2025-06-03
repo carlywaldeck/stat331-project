@@ -132,8 +132,6 @@ food_gdp_rand <- food_gdp |>
                               size = n))
 ```
 
-### R\^2 on Each
-
 ```{r}
 
 cross <- function(x, food_gdp) {
@@ -157,3 +155,5 @@ r_sq_k_fold <- map_dbl(.x = 1:10,
 
 mean(r_sq_k_fold)
 ```
+
+#### **3.2 Plot the results**
