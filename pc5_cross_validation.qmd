@@ -17,3 +17,110 @@ library(gganimate)
 library(gt)
 library(kableExtra)
 ```
+
+
+
+```{r load-data}
+# load in data
+food <- read_csv("food_supply_kilocalories_per_person_and_day.csv")
+gdp <- read_csv("gdp_pcap.csv")
+```
+
+## From PC4
+
+```{r}
+# clean data then take mean of data from 2012-2018 so we have one x and one y value for each country
+
+food_summary <- food |>
+  select("country", "2012", "2013", "2014", "2015",
+         "2016", "2017", "2018") |>
+  mutate(avg_food = rowMeans(across(`2012`:`2018`), na.rm = TRUE))|> 
+  drop_na() |>
+  select(country, avg_food)
+
+gdp_summary <- gdp |>
+  select(country, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`) |>
+  mutate(across(`2012`:`2018`, ~ {
+    ifelse(str_detect(.x, "k$"),
+           as.numeric(str_remove(.x, "k")) * 1000,
+           as.numeric(.x)
+    )
+  })) |>
+  mutate(average_gdp = rowMeans(across(`2012`:`2018`), na.rm = TRUE)) |>
+  select(country, average_gdp)
+
+food_gdp <- left_join(food_summary, gdp_summary, by = "country")
+```
+
+
+
+```{r}
+# Joining datasets to include one obs. per country/year combination
+
+gdp_longer <- gdp |>
+  mutate(across(.cols = !country,
+                .fns = ~ case_when(str_detect(.x, "k") ~ as.numeric(str_remove(.x, "k")) * 1000, TRUE ~ as.numeric(.x)))) |>
+  pivot_longer(cols = !country,
+               names_to = "year")
+
+food_supply_longer <- food |>
+  mutate(across(.cols = !country,
+                .fns = ~as.numeric(.x))) |>
+  pivot_longer(cols = !country,
+               names_to = "year")
+
+data_joined <- gdp_longer |>
+  inner_join(food_supply_longer, # only include matching rows
+             join_by(country, year)) |>
+  rename(gdp_pcap = "value.x",
+         food_supply = "value.y") |>
+  drop_na() |>
+  mutate(year = as_factor(str_extract(year, pattern = "[:digit:]{1,}")),
+         country = as_factor(country))
+
+```
+
+```{r, results='hide'}
+## run linear regression
+model <- lm(log(avg_food) ~ log(average_gdp), data = food_gdp)
+summary(model)
+```
+
+In order to better observe and quantify the relationship between food consumption and GDP per capita, a linear regression model was fit. The relationship between the original variables was not linear, so a logarithmic transformation was applied to both.
+
+The following equation represents the fitted regression model, where $\widehat{food_i}$ represents the predicted average food consumption (kcal/person/day) and $GDP_i$ represents average GDP per capita (USD).
+
+$$\log{(\widehat{food}_i)} = 6.895 + 0.1125\log{(GDP_i)}$$
+
+A 1% increase in average GDP per capita is associated with approximately a 0.1125% increase in average food consumption.
+
+The expected natural logarithm of average food consumption is 6.895 when the natural logarithm of average GDP per capita is zero. On a non-logarithmic scale, this corresponds to an expected average food supply of 987.3 kcal/person/day when average GDP per capita is \$1 USD.
+
+## 2.3 Model Fit
+
+```{r}
+
+# find variance
+A <- var(log(food_gdp$avg_food), na.rm = TRUE)     
+B <- var(fitted(model), na.rm = TRUE)                
+resid_var <- var(residuals(model), na.rm = TRUE)      
+r_squared <- B / A 
+
+# create table
+tibble(
+  Metric = c(
+    "Variance in response",
+    "Variance in fitted values",
+    "Variance in residuals",
+    "Model R²"
+  ),
+  Value = c(A, B, resid_var, r_squared)
+) |>
+  mutate(Value = round(Value, 2)) |>
+  kable(format = "html", caption = "Regression Summary Statistics") |>
+  kable_styling(bootstrap_options = c("hover", "condensed",
+                                      "responsive"), full_width = FALSE,
+                position = "left")
+
+```
+
