@@ -9,16 +9,12 @@ warning: FALSE
 echo: false
 ---
 
-
-
 ```{r}
 library(tidyverse)
 library(gganimate)
 library(gt)
 library(kableExtra)
 ```
-
-
 
 ```{r load-data}
 # load in data
@@ -51,8 +47,6 @@ gdp_summary <- gdp |>
 
 food_gdp <- left_join(food_summary, gdp_summary, by = "country")
 ```
-
-
 
 ```{r}
 # Joining datasets to include one obs. per country/year combination
@@ -124,3 +118,10 @@ tibble(
 
 ```
 
+## 3.0 Cross Validation
+
+#### **3.1 Implement k-fold cross validation**
+
+```{r}
+
+```
