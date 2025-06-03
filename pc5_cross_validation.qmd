@@ -139,7 +139,19 @@ food_gdp_rand <- food_gdp |>
 
 cv_r2 <- rep(NA, k)
 
+# trying things
+
+x <- sample(1:k, replace = F)
 
 
+cross <- function(x) {
+  fold_dat <- food_gdp_rand |> 
+    filter(fold_random == x)
+  train_dat <- food_gdp_rand |> 
+    filter(fold_random != x)
+}
+
+
+cross(sample(1:k, replace = F))
 
 ```
