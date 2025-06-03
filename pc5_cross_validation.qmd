@@ -150,7 +150,7 @@ cross <- function(x, food_gdp) {
 }
 
 
-r_sq_k_fold <- map_dbl(.x = 1:10,
+r_sq_k_fold <- map_dbl(.x = 1:k,
                        .f = ~cross(.x, food_gdp_rand))
 
 mean(r_sq_k_fold)
