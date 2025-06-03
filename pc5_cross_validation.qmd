@@ -133,4 +133,13 @@ food_gdp_rand <- food_gdp |>
                               size = n))
 ```
 
+### R^2 on Each
 
+```{r}
+
+cv_r2 <- rep(NA, k)
+
+
+
+
+```
