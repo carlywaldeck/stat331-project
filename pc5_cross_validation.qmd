@@ -157,6 +157,7 @@ mean(r_sq_k_fold)
 ```
 
 #### **3.2 Plot the results**
+
 ```{r}
 as.data.frame(r_sq_k_fold) |>
   arrange(r_sq_k_fold) |> 
@@ -175,3 +176,7 @@ as.data.frame(r_sq_k_fold) |>
 
 ```
 
+<<<<<<< HEAD
+=======
+The R\^2 from fitting the model on the full dataset was 0.62, and the average R\^2 across folds is 0.642, so it appears the model is neither overfitting or underfitting.
+>>>>>>> e556962b1b5ae0a4440dde77c0f8fbb087518972
