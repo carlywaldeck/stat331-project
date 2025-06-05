@@ -135,6 +135,39 @@ data_joined <- gdp_longer |>
 
 ## Cross-Validation
 
+```{r}
+# Separate into folds
+set.seed(123)
+k <- 10
+n <- nrow(food_gdp)
+
+food_gdp_rand <- food_gdp |> 
+  mutate(fold_random = sample(rep_len(1:k, length.out = n),
+                              size = n))
+
+# k-fold function
+cross <- function(x, food_gdp) {
+  fold_dat <- food_gdp |> 
+    filter(fold_random == x)
+  train_dat <- food_gdp |> 
+    filter(fold_random != x)
+  
+  model <- lm(log(avg_food) ~ log(average_gdp), data = train_dat)
+  
+  # generate predictions for the held-out fold data
+  fold_preds <- predict(model, newdata = fold_dat)
+  
+  cv_r2 <- var(fold_preds, na.rm = TRUE)/var(log(fold_dat$avg_food), na.rm = TRUE)
+  
+}
+
+
+r_sq_k_fold <- map_dbl(.x = 1:k,
+                       .f = ~cross(.x, food_gdp_rand))
+
+avg_rsq <- mean(r_sq_k_fold)
+```
+
 ...
 
 ## Conclusion
