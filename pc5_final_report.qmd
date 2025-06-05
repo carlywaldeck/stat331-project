@@ -70,8 +70,6 @@ data_joined <- gdp_longer |>
 
 The data on food consumption contains 16 fewer countries than the data on GDP per capita. Thus, when combining the data sets, we did not include those 16 countries. Additionally, the data on GDP per capita spans from 1800 to 2100 and has data in "k"" units representing thousands. So, we converted all "k" units into 1000s. However, the data on food consumption spans from 1961 to 2018. So, to make sure the years for the data consistent, we only data from GDP per capita from 1961 to 2018. Finally, there are several observations that did not have data on the kilocalories consumed. So, we cleaned our data to only include the years where there was data.
 
-# what about making numbers into 1000s (we did that no?)
-
 *Data Cleaning Potential Impact*
 
 Since we did not include every country in the GDP per capita data, are analysis may be limited. #by what? Furthermore, we only include years for which we had data from both the GDP per capita and food consumption data set. #not too sure what we say here...
@@ -83,8 +81,6 @@ Since we did not include every country in the GDP per capita data, are analysis 
 food <- read_csv("food_supply_kilocalories_per_person_and_day.csv")
 gdp <- read_csv("gdp_pcap.csv")
 ```
-
-# Question why did we use data set food, when we already have the cleaned data up above...
 
 ```{r}
 # clean data then take mean of data from 2012-2018 so we have one x and one y value for each country
@@ -135,8 +131,6 @@ data_joined <- gdp_longer |>
          country = as_factor(country))
 
 ```
-
-## Modeling the Data Relationship Between Food Consumption and GDP per Capita
 
 ```{r, results='hide'}
 ## run linear regression
