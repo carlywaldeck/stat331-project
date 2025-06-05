@@ -131,7 +131,21 @@ data_joined <- gdp_longer |>
 
 ## Modeling the Data Relationship Between Food Consumption and GDP per Capita
 
-...
+```{r, results='hide'}
+## run linear regression
+model <- lm(log(avg_food) ~ log(average_gdp), data = food_gdp)
+summary(model)
+```
+
+In order to better observe and quantify the relationship between food consumption and GDP per capita, a linear regression model was fit. The relationship between the original variables was not linear, so a logarithmic transformation was applied to both.
+
+The following equation represents the fitted regression model, where $\widehat{food_i}$ represents the predicted average food consumption (kcal/person/day) and $GDP_i$ represents average GDP per capita (USD).
+
+$$\log{(\widehat{food}_i)} = 6.895 + 0.1125\log{(GDP_i)}$$
+
+A 1% increase in average GDP per capita is associated with approximately a 0.1125% increase in average food consumption.
+
+The expected natural logarithm of average food consumption is 6.895 when the natural logarithm of average GDP per capita is zero. On a non-logarithmic scale, this corresponds to an expected average food supply of 987.3 kcal/person/day when average GDP per capita is \$1 USD.
 
 ## Cross-Validation
 
