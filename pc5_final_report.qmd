@@ -156,6 +156,20 @@ data_joined <- gdp_longer |>
 
 ```
 
+```{r}
+## scatterplot with line of best fit
+ggplot(data = food_gdp, aes(x = log(average_gdp), y = log(avg_food))) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(
+    title = "Average Food Consumption vs Average GDP",
+    x = "log(Average GDP)",
+    y = "log(Average Food Consumption)"
+  ) +
+  theme_minimal()
+```
+![](animation.gif)
+
 ```{r, results='hide'}
 ## run linear regression
 model <- lm(log(avg_food) ~ log(average_gdp), data = food_gdp)
