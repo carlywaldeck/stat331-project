@@ -168,6 +168,23 @@ r_sq_k_fold <- map_dbl(.x = 1:k,
 avg_rsq <- mean(r_sq_k_fold)
 ```
 
+```{r}
+# Plot
+as.data.frame(r_sq_k_fold) |>
+  arrange(r_sq_k_fold) |> 
+  ggplot(aes(y = r_sq_k_fold,
+             x = 1:10)
+         ) +
+  geom_col() +
+  geom_hline(aes(yintercept = mean(r_sq_k_fold)), 
+             color = "red") +
+  theme(axis.ticks.x = element_blank(),
+        axis.text.x = element_blank())+
+  labs(title = "Cross Validation R²",
+       y ="R²", x = "", 
+       caption = "The red line is the average R² from the Cross Validation tests.")
+```
+
 ...
 
 ## Conclusion
