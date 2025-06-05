@@ -230,6 +230,8 @@ as.data.frame(r_sq_k_fold) |>
        caption = "The red line is the average R² from the Cross Validation tests.")
 ```
 
+All the folds have an R\^2 of at least 0.50, which means that at 50% of the variation in a country's food consumption is explained by it's GDP per capita. The variation in R\^2 varies from about 50% to over 90% between folds. The R\^2 from fitting the model on the full dataset was 0.62, and the average R\^2 across folds is 0.642, so it appears the model is neither overfitting or underfitting.
+
 ...
 
 ## Conclusion
