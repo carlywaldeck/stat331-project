@@ -16,6 +16,15 @@ library(gt)
 library(kableExtra)
 ```
 
+
+```{r load-data}
+# load in data
+food <- read_csv("food_supply_kilocalories_per_person_and_day.csv")
+gdp <- read_csv("gdp_pcap.csv")
+```
+
+
+
 ## Introduction
 
 **Research Question**
