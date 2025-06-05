@@ -101,7 +101,7 @@ The following animation shows how the relationship between food consumption and 
 
 data_joined_2 <- data_joined |>
   mutate(year = as.numeric(as.character(year)))
-animation <- ggplot(data_joined_2, aes(x = log(gdp_pcap), y = log(food_supply), color = country)) +
+animation <- ggplot(data_joined_2, aes(x = log(gdp_pcap), y = log(food_supply), color = "steelblue")) +
   geom_point(size = 3, show.legend = FALSE) +
   labs(
     title = "Food Consumption vs GDP Over Time",
