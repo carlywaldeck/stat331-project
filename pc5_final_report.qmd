@@ -49,7 +49,7 @@ gdp_longer <- gdp |>
   pivot_longer(cols = !country,
                names_to = "year")
 
-food_supply_longer <- food_supply |>
+food_supply_longer <- food |>
   mutate(across(.cols = !country,
                 .fns = ~as.numeric(.x))) |>
   pivot_longer(cols = !country,
