@@ -66,6 +66,30 @@ data_joined <- gdp_longer |>
 
 ```
 
+```{r}
+# clean data then take mean of data from 2012-2018 so we have one x and one y value for each country
+
+food_summary <- food |>
+  select("country", "2012", "2013", "2014", "2015",
+         "2016", "2017", "2018") |>
+  mutate(avg_food = rowMeans(across(`2012`:`2018`), na.rm = TRUE))|> 
+  drop_na() |>
+  select(country, avg_food)
+
+gdp_summary <- gdp |>
+  select(country, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`) |>
+  mutate(across(`2012`:`2018`, ~ {
+    ifelse(str_detect(.x, "k$"),
+           as.numeric(str_remove(.x, "k")) * 1000,
+           as.numeric(.x)
+    )
+  })) |>
+  mutate(average_gdp = rowMeans(across(`2012`:`2018`), na.rm = TRUE)) |>
+  select(country, average_gdp)
+
+food_gdp <- left_join(food_summary, gdp_summary, by = "country")
+```
+
 **Data Cleaning Process**
 
 The data on food consumption contains 16 fewer countries than the data on GDP per capita. Thus, when combining the data sets, we did not include those 16 countries. Additionally, the data on GDP per capita spans from 1800 to 2100 and has data in "k"" units representing thousands. So, we converted all "k" units into 1000s. However, the data on food consumption spans from 1961 to 2018. So, to make sure the years for the data consistent, we only data from GDP per capita from 1961 to 2018. Finally, there are several observations that did not have data on the kilocalories consumed. So, we cleaned our data to only include the years where there was data.
@@ -200,7 +224,7 @@ as.data.frame(r_sq_k_fold) |>
        caption = "The red line is the average R² from the Cross Validation tests.")
 ```
 
-The R\^2 from fitting the model on the full dataset was 0.62, and the average R\^2 across folds is 0.642, so it appears the model is neither overfitting or underfitting.
+=======
 
 ## Conclusion
 
