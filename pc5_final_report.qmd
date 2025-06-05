@@ -168,6 +168,7 @@ ggplot(data = food_gdp, aes(x = log(average_gdp), y = log(avg_food))) +
   ) +
   theme_minimal()
 ```
+
 ![](animation.gif)
 
 ```{r, results='hide'}
