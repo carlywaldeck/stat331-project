@@ -168,7 +168,7 @@ The following equation represents the fitted regression model, where $\widehat{f
 
 $$\log{(\widehat{food}_i)} = 6.895 + 0.1125\log{(GDP_i)}$$
 
-### fix this A 1% increase in average GDP per capita is associated with approximately a 0.1125% increase in average food consumption.
+A 10% increase in average GDP per capita is a ssociated with approximately a 1% increase in average food consumption.
 
 The expected natural logarithm of average food consumption is 6.895 when the natural logarithm of average GDP per capita is zero. On a non-logarithmic scale, this corresponds to an expected average food supply of 987.3 kcal/person/day when average GDP per capita is \$1 USD.
 
