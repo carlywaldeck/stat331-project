@@ -92,7 +92,7 @@ food_gdp <- left_join(food_summary, gdp_summary, by = "country")
 
 **Data Cleaning Process**
 
-The data on food consumption contains 16 fewer countries than the data on GDP per capita. Thus, when combining the data sets, we did not include those 16 countries. Additionally, the data on GDP per capita spans from 1800 to 2100. However, the data on food consumption spans from 1961 to 2018. So, to make sure the years for the data consistent, we only data from GDP per capita from 1961 to 2018. Finally, there are several observations that did not have data on the kilocalories consumed. So, we cleaned our data to only include the years where there was data.
+The data on food consumption contains 16 fewer countries than the data on GDP per capita. Thus, when combining the data sets, we did not include those 16 countries. Additionally, the data on GDP per capita spans from 1800 to 2100 and has data in "k"" units representing thousands. So, we converted all "k" units into 1000s. However, the data on food consumption spans from 1961 to 2018. So, to make sure the years for the data consistent, we only data from GDP per capita from 1961 to 2018. Finally, there are several observations that did not have data on the kilocalories consumed. So, we cleaned our data to only include the years where there was data.
 
 # what about making numbers into 1000s (we did that no?)
 
