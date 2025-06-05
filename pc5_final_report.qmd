@@ -128,3 +128,15 @@ data_joined <- gdp_longer |>
          country = as_factor(country))
 
 ```
+
+## Modeling the Data Relationship Between Food Consumption and GDP per Capita
+
+...
+
+## Cross-Validation
+
+...
+
+## Conclusion
+
+...
