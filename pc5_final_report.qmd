@@ -2,25 +2,132 @@
 title: "Untitled"
 format: html
 editor: visual
+code-fold: TRUE
 ---
 
-## Quarto
+## Introduction
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+**Research Question**
 
-## Running Code
+Over the course of this project, our groups hopes to answer the following question:
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+*Is there an association between gross domestic product per capita and food consumption?*
 
-```{r}
-1 + 1
+**Background**
+
+We hypothesize that there will be a positive linear relationship with GDP and calories. Foremost, there is a positive linear association with GDP per capita and quality of life. Using this knowledge, that as GDP per capita increases, food abundance would increase, causing the number of calories consumed to also increase. Also, using GDP per capita as a measure of income, as income rises, one is able to afford more. Under the assumption of monotonicity, more is better, and the income effect, one would believe that an increase in overall income would allow people to buy more food (more is better) and have to work less (more time to leisure--eat).(Sands 2024). Furthermore, poorer nations, nations with less GDP per capita suffer more from malnutrition. 
+
+#https://www.worldbank.org/en/topic/nutrition/overview
+
+**Summary of Data**
+
+Our team will explore two datasets in our analysis: Gross domestic product (GDP) per capita and food supply.
+
+GDP per capita provides a measure of a country's total economic output, divided by the nation's population. The variable is adjusted for inflation by fixing prices to 2017 dollars, and measured in Purchasing Power Parity (PPP) dollars. PPP dollars offer a virtual currency used to facilitate international economic comparisons. The [dataset](https://www.gapminder.org/data/documentation/gd001/) contains observations for 195 countries, providing estimates spanning from 1800 to 2100.
+
+The [food supply dataset](https://www.fao.org/faostat/en/#home), sourced from the United Nation's Food and Agriculture Organization, provides insight into a country's food security and nutritional status. The dataset offers annual observations of a country's food supply by measuring kilocalories per person per day. The dataset contains observations for 179 countries, spanning from 1961 to 2018.
+
+## Data Cleaning
+
+```{r data_cleaning}
+# Joining datasets to include one obs. per country/year combination
+
+gdp_longer <- gdp |>
+  mutate(across(.cols = !country,
+                .fns = ~ case_when(str_detect(.x, "k") ~ as.numeric(str_remove(.x, "k")) * 1000, TRUE ~ as.numeric(.x)))) |>
+  pivot_longer(cols = !country,
+               names_to = "year")
+
+food_supply_longer <- food_supply |>
+  mutate(across(.cols = !country,
+                .fns = ~as.numeric(.x))) |>
+  pivot_longer(cols = !country,
+               names_to = "year")
+
+data_joined <- gdp_longer |>
+  inner_join(food_supply_longer, # only include matching rows
+             join_by(country, year)) |>
+  rename(gdp_pcap = "value.x",
+         food_supply = "value.y") |>
+  drop_na() |>
+  mutate(year = as_factor(str_extract(year, pattern = "[:digit:]{1,}")),
+         country = as_factor(country))
+
 ```
 
-You can add options to executable code like this
 
+**Data Cleaning Process**
+
+The data on food consumption contains 16 fewer countries than the data on GDP per capita. Thus, when combining the data sets, we did not include those 16 countries. Additionally, the data on GDP per capita spans from 1800 to 2100. However, the data on food consumption spans from 1961 to 2018. So, to make sure the years for the data consistent, we only data from GDP per capita from 1961 to 2018. Finally, there are several observations that did not have data on the kilocalories consumed. So, we cleaned our data to only include the years where there was data. 
+
+# what about making numbers into 1000s (we did that no?)
+
+*Data Cleaning Potential Impact*
+
+Since we did not include every country in the GDP per capita data, are analysis may be limited. 
+#by what?
+Furthermore, we only include years for which we had data from both the GDP per capita and food consumption data set. 
+#not too sure what we say here...
+
+## Modeling the Relationship between GDP per Capita and Food Consumption in Kilocalories
+
+```{r load-data}
+# load in data
+food <- read_csv("food_supply_kilocalories_per_person_and_day.csv")
+gdp <- read_csv("gdp_pcap.csv")
+```
+# Question why did we use data set food, when we already have the cleaned data up above...
 ```{r}
-#| echo: false
-2 * 2
+# clean data then take mean of data from 2012-2018 so we have one x and one y value for each country
+
+food_summary <- food |>
+  select("country", "2012", "2013", "2014", "2015",
+         "2016", "2017", "2018") |>
+  mutate(avg_food = rowMeans(across(`2012`:`2018`), na.rm = TRUE))|> 
+  drop_na() |>
+  select(country, avg_food)
+
+gdp_summary <- gdp |>
+  select(country, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`) |>
+  mutate(across(`2012`:`2018`, ~ {
+    ifelse(str_detect(.x, "k$"),
+           as.numeric(str_remove(.x, "k")) * 1000,
+           as.numeric(.x)
+    )
+  })) |>
+  mutate(average_gdp = rowMeans(across(`2012`:`2018`), na.rm = TRUE)) |>
+  select(country, average_gdp)
+
+food_gdp <- left_join(food_summary, gdp_summary, by = "country")
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+```{r}
+# Joining datasets to include one obs. per country/year combination
+
+gdp_longer <- gdp |>
+  mutate(across(.cols = !country,
+                .fns = ~ case_when(str_detect(.x, "k") ~ as.numeric(str_remove(.x, "k")) * 1000, TRUE ~ as.numeric(.x)))) |>
+  pivot_longer(cols = !country,
+               names_to = "year")
+
+food_supply_longer <- food |>
+  mutate(across(.cols = !country,
+                .fns = ~as.numeric(.x))) |>
+  pivot_longer(cols = !country,
+               names_to = "year")
+
+data_joined <- gdp_longer |>
+  inner_join(food_supply_longer, # only include matching rows
+             join_by(country, year)) |>
+  rename(gdp_pcap = "value.x",
+         food_supply = "value.y") |>
+  drop_na() |>
+  mutate(year = as_factor(str_extract(year, pattern = "[:digit:]{1,}")),
+         country = as_factor(country))
+
+```
+
+
+
+
+
