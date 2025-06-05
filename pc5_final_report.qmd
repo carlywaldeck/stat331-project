@@ -206,7 +206,7 @@ as.data.frame(r_sq_k_fold) |>
        caption = "The red line is the average R² from the Cross Validation tests.")
 ```
 
-...
+The R\^2 from fitting the model on the full dataset was 0.62, and the average R\^2 across folds is 0.642, so it appears the model is neither overfitting or underfitting.
 
 ## Conclusion
 
