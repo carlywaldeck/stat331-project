@@ -9,6 +9,13 @@ warning: FALSE
 code-fold: TRUE
 ---
 
+```{r}
+library(tidyverse)
+library(gganimate)
+library(gt)
+library(kableExtra)
+```
+
 ## Introduction
 
 **Research Question**
