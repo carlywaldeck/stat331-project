@@ -152,7 +152,7 @@ data_joined <- gdp_longer |>
          country = as_factor(country))
 
 ```
-
+The graph below shows a scatterplot of the average of the log of GDP per Capita (log(GDP per Capita)) and the average of the log Food Consumption (log(Food Consumption))from 2012 to 2018. 
 ```{r}
 ## scatterplot with line of best fit
 ggplot(data = food_gdp, aes(x = log(average_gdp), y = log(avg_food))) +
@@ -166,13 +166,15 @@ ggplot(data = food_gdp, aes(x = log(average_gdp), y = log(avg_food))) +
   theme_minimal()
 ```
 
-It can be seen from the scatterplot above that, after applying a logarithmic transformation, there is a moderate, positive, linear relationship between log(Average GDP per Capita) and log(Average Food Consumption) for the subsetted data from 2012-2018.
+It can be seen from the scatterplot above that, after applying a logarithmic transformation, there is a moderate, positive, linear relationship between the average log(GDP per Capita) and the average log(Food Consumtpion) for the subsetted data from 2012-2018.
 
-The following animation shows how the relationship between food consumption and GDP per capita has changed over time.
+The following animation shows how the relationship between log(Food Consumption) and log(GDP per Capita) has changed over time.
 
 ![](animation.gif)
 
 It can be seen that the relationship between log(GDP per Capita) and log(Food Consumption) initially is weak, positive, and linear, but evolves to a stronger, positive, linear relationship over time.
+
+
 
 ```{r, results='hide'}
 ## run linear regression
@@ -192,6 +194,7 @@ The expected natural logarithm of average food consumption is 6.895 when the nat
 
 ## Model Fit
 
+The table shows the model fit for the linear regression model. 
 ```{r}
 
 # find variance
@@ -218,7 +221,7 @@ tibble(
 
 ```
 
-The above table shows the model fit for the linear regression model in the previous. Foremost, the models R\^2 is 0.62, which means 62% of variation if food consumption in kilocalories is explained by GDP per capita.
+62% of variability in average food consumption is explained by GDP per capita. Thus, 38% of the variability in average food consumption is not explained by GDP per capita. This suggests that while the model captures some of the relationship, it does not provide a strong fit. Ideally the R\^2 value would be much higher, to indicate a more reliable and predictive model.
 
 ## Cross-Validation
 
