@@ -31,9 +31,7 @@ Over the course of this project, our groups hopes to answer the following questi
 
 **Background**
 
-We hypothesize that there will be a positive linear relationship with GDP and calories. Foremost, there is a positive linear association with GDP per capita and quality of life. Using this knowledge, that as GDP per capita increases, food abundance would increase, causing the number of calories consumed to also increase. Also, using GDP per capita as a measure of income, as income rises, one is able to afford more. Under the assumption of monotonicity, more is better, and the income effect, one would believe that an increase in overall income would allow people to buy more food (more is better) and have to work less (more time to leisure--eat).(Sands 2024). Furthermore, poorer nations, nations with less GDP per capita suffer more from malnutrition.
-
-#https://www.worldbank.org/en/topic/nutrition/overview
+We hypothesize that there will be a positive linear relationship with GDP and calories. Foremost, there is a positive linear association with GDP per capita and quality of life. Using this knowledge, that as GDP per capita increases, food abundance would increase, causing the number of calories consumed to also increase. Also, using GDP per capita as a measure of income, as income rises, one is able to afford more. Under the assumption of monotonicity, more is better, and the income effect, one would believe that an increase in overall income would allow people to buy more food (more is better) and have to work less (more time to leisure--eat).(Sands 2024). Furthermore, poorer nations, nations with less GDP per capita suffer more from malnutrition (https://www.worldbank.org/en/topic/nutrition/overview).
 
 **Summary of Data**
 
@@ -185,6 +183,35 @@ $$\log{(\widehat{food}_i)} = 6.895 + 0.1125\log{(GDP_i)}$$
 A 10% increase in average GDP per capita is associated with approximately a 1% increase in average food consumption.
 
 The expected natural logarithm of average food consumption is 6.895 when the natural logarithm of average GDP per capita is zero. On a non-logarithmic scale, this corresponds to an expected average food supply of 987.3 kcal/person/day when average GDP per capita is \$1 USD.
+
+## Model Fit
+
+```{r}
+
+# find variance
+A <- var(log(food_gdp$avg_food), na.rm = TRUE)     
+B <- var(fitted(model), na.rm = TRUE)                
+resid_var <- var(residuals(model), na.rm = TRUE)      
+r_squared <- B / A 
+
+# create table
+tibble(
+  Metric = c(
+    "Variance in response",
+    "Variance in fitted values",
+    "Variance in residuals",
+    "Model R²"
+  ),
+  Value = c(A, B, resid_var, r_squared)
+) |>
+  mutate(Value = round(Value, 2)) |>
+  kable(format = "html", caption = "Regression Summary Statistics") |>
+  kable_styling(bootstrap_options = c("hover", "condensed",
+                                      "responsive"), full_width = FALSE,
+                position = "left")
+
+```
+The above table shows the model fit for the linear regression model in the previous. Foremost, the models R\^2 is 0.62, which means 62% of variation if food consumption in kilocalories is explained by GDP per capita. 
 
 ## Cross-Validation
 
