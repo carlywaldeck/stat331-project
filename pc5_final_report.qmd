@@ -95,7 +95,7 @@ food_gdp <- left_join(food_summary, gdp_summary, by = "country")
 
 **Data Cleaning Process**
 
-The data on food consumption contains 32 fewer countries than the data on GDP per capita, and the nutrition data has 2 countries not present in the GDP data. Thus, when combining the data sets, we did not include those countries. Additionally, the data on GDP per capita spans from 1800 to 2100 and has data in "k" units representing thousands. So, we converted all "k" units into 1000s. However, the data on food consumption spans from 1961 to 2018. So, to make sure the years for the data consistent, we only data from GDP per capita from 1961 to 2018. Finally, there are several observations that did not have data on the kilocalories consumed. So, we cleaned our data to only include the years where there was data.
+The data on food consumption contains 32 fewer countries than the data on GDP per capita, and the nutrition data has 2 countries not present in the GDP data. Thus, to ensure consistency when combining the data sets, we did not include those countries. Additionally, the data on GDP per capita spans from 1800 to 2100 and has data in "k" units representing thousands. So, we converted all "k" units into 1000s. However, the data on food consumption spans from 1961 to 2018. So, to make sure the years for the data consistent, we only data from GDP per capita from 1961 to 2018. Finally, there are several observations that did not have data on the kilocalories consumed. So, we cleaned our data to only include the years where there was data as to focus only on complete cases.
 
 *Data Cleaning Potential Impact*
 
