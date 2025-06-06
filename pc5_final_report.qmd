@@ -16,13 +16,10 @@ library(gt)
 library(kableExtra)
 ```
 
-
 ```{r load-data}
 food <- read_csv("food_supply_kilocalories_per_person_and_day.csv")
 gdp <- read_csv("gdp_pcap.csv")
 ```
-
-
 
 ## Introduction
 
@@ -42,7 +39,7 @@ We hypothesize that there will be a positive linear relationship with GDP and ca
 
 Our team will explore two datasets in our analysis: Gross domestic product (GDP) per capita and food supply.
 
-GDP per capita provides a measure of a country's total economic output, divided by the nation's population. The variable is adjusted for inflation by fixing prices to 2017 dollars, and measured in Purchasing Power Parity (PPP) dollars. PPP dollars offer a virtual currency used to facilitate international economic comparisons. The [dataset](https://www.gapminder.org/data/documentation/gd001/) contains observations for 195 countries, providing estimates spanning from 1800 to 2100. The dataset from 1820 to 1990 is from the Maddison Project Database (https://www.rug.nl/ggdc/historicaldevelopment/maddison/releases/maddison-project-database-2023) and the data from 1990 to 2022 is from the World Bank(https://data.worldbank.org/indicator/NY.GDP.PCAP.PP.KD). When the World Bank or the Maddison Project did not have data, the data was taken from estimates from the Penn World Table. Then, if data is still needed Gapminder uses previous versions of data. (https://www.gapminder.org/data/documentation/gd001/#v26)
+GDP per capita provides a measure of a country's total economic output, divided by the nation's population. The variable is adjusted for inflation by fixing prices to 2017 dollars, and measured in Purchasing Power Parity (PPP) dollars. PPP dollars offer a virtual currency used to facilitate international economic comparisons. The [dataset](https://www.gapminder.org/data/documentation/gd001/) contains observations for 195 countries, providing estimates spanning from 1800 to 2100. The dataset from 1820 to 1990 is from the Maddison Project Database (https://www.rug.nl/ggdc/historicaldevelopment/maddison/releases/maddison-project-database-2023) and the data from 1990 to 2022 is from the World Bank (https://data.worldbank.org/indicator/NY.GDP.PCAP.PP.KD). When the World Bank or the Maddison Project did not have data, the data was taken from estimates from the Penn World Table. Then, if data is still needed Gapminder uses previous versions of their own data.
 
 The [food supply dataset](https://www.fao.org/faostat/en/#home), sourced from the United Nation's Food and Agriculture Organization, provides insight into a country's food security and nutritional status. The dataset offers annual observations of a country's food supply by measuring kilocalories per person per day. The dataset contains observations for 179 countries, spanning from 1961 to 2018.
 
@@ -104,7 +101,7 @@ The data on food consumption contains 16 fewer countries than the data on GDP pe
 
 *Data Cleaning Potential Impact*
 
-Since we did not include every country in the GDP per capita data, are analysis may be limited. #by what? Furthermore, we only include years for which we had data from both the GDP per capita and food consumption data set. #not too sure what we say here...
+Since we did not include every country in the GDP per capita data, are analysis may be limited. Furthermore, we only include years for which we had data from both the GDP per capita and food consumption data set. 
 
 ## Modeling the Relationship between GDP per Capita and Food Consumption in Kilocalories
 
@@ -185,12 +182,14 @@ The following equation represents the fitted regression model, where $\widehat{f
 
 $$\log{(\widehat{food}_i)} = 6.895 + 0.1125\log{(GDP_i)}$$
 
-A 10% increase in average GDP per capita is a ssociated with approximately a 1% increase in average food consumption.
+A 10% increase in average GDP per capita is associated with approximately a 1% increase in average food consumption.
 
 The expected natural logarithm of average food consumption is 6.895 when the natural logarithm of average GDP per capita is zero. On a non-logarithmic scale, this corresponds to an expected average food supply of 987.3 kcal/person/day when average GDP per capita is \$1 USD.
 
 ## Cross-Validation
 
+To test our regression model, we are using cross validation. Simply put, we are randomly assigning our data into 10 folds, called a 10-fold CV. Then, we use 9 of those folds to train the model. The remaining fold is the test fold, which we see how well our model can predict by retaining its R\^2. This process is repeated 9 additional times, until all 10 folds are each used as a test. The results of the cross-validation (see below) will then be used to determine the predictive ability of our model 
+ 
 ```{r}
 # Separate into folds
 set.seed(123)
@@ -245,4 +244,18 @@ All the folds have an R\^2 of at least 0.50, which means that at 50% of the vari
 
 ## Conclusion
 
-...
+Based on our regression model, we conclude that there is a positive association between GDP per capita and food consumption in kilocalories. Thus, as GDP per capita increases, food consumption is expected to also increase. Since our model was not over or underfitting, we conclude that around 62% of the variation in food consumption is explained by GDP per capita. Furthermore, for every 10% increase in GDP per capita, food consumption should increase by around 1%. These results back our hypothesis that there will be a positive linear relationship with GDP and calories.
+
+## References
+
+\[1\] Food and Agriculture Organization of the United Nations, “FAOSTAT,” *www.fao.org*, 2024. https://www.fao.org/faostat/en/#home
+
+\[2\] GapMinder, “GD001,” *Gapminder.org*, 2011. https://www.gapminder.org/data/documentation/gd001/
+
+\[3\] “Maddison Project Database 2023,” University of Groningen, Sep. 24, 2024. https://www.rug.nl/ggdc/historicaldevelopment/maddison/releases/maddison-project-database-2023
+
+\[4\] “Overview,” World Bank. https://www.worldbank.org/en/topic/nutrition/overview
+
+\[5\] R. Sands, “Patterns of global food consumption expected to shift in next quarter century as population, incomes rise | Economic Research Service,” Jun. 20, 2024. https://www.ers.usda.gov/amber-waves/2024/june/patterns-of-global-food-consumption-expected-to-shift-in-next-quarter-century-as-population-incomes-rise (accessed May 23, 2025).
+
+\[6\] “World Bank Open Data,” World Bank Open Data. https://data.worldbank.org/indicator/NY.GDP.PCAP.PP.KD
