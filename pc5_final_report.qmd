@@ -246,11 +246,11 @@ tibble(
 
 ```
 
-62% of variability in average food consumption is explained by GDP per capita. Thus, 38% of the variability in average food consumption is not explained by GDP per capita. This suggests that while the model captures some of the relationship, it does not provide a strong fit. Ideally the R\^2 value would be much higher, to indicate a more reliable and predictive model.
+62% of variability in average food consumption is explained by GDP per capita. Thus, 38% of the variability in average food consumption is not explained by GDP per capita. This suggests that while the model captures some of the relationship, it does not provide a strong fit. Ideally the R^2^ value would be much higher, to indicate a more reliable and predictive model.
 
 ## Cross-Validation
 
-To test our regression model, we are using cross validation. Simply put, we are randomly assigning our data into 10 folds, called a 10-fold CV. Then, we use 9 of those folds to train the model. The remaining fold is the test fold, which we see how well our model can predict by retaining its R\^2. This process is repeated 9 additional times, until all 10 folds are each used as a test. The results of the cross-validation (see below) will then be used to determine the predictive ability of our model.
+To test our regression model, we are using cross validation. Simply put, we are randomly assigning our data into 10 folds, called a 10-fold CV. Then, we use 9 of those folds to train the model. The remaining fold is the test fold, which we see how well our model can predict by retaining its R^2^. This process is repeated 9 additional times, until all 10 folds are each used as a test. The results of the cross-validation (see below) will then be used to determine the predictive ability of our model.
 
 ```{r}
 # Separate into folds
