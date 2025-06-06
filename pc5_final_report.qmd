@@ -99,7 +99,7 @@ The data on food consumption contains 32 fewer countries than the data on GDP pe
 
 *Data Cleaning Potential Impact*
 
-The majority of countries included in the GDP data but not the nutrition data are very small in population and/or remote. Omitted countries include Andorra (population 80,856), Bermuda (population 64,698), and Seychelles (population 119,773). There are two countries present in the nutrition data, but not the GDP data: USSR and Yugoslavia. These countries no longer exist. To observe trends over time, it will only be important to include countries with long-term trends.
+The exclusion of countries due to inconsistency between the datasets may limit the how representative our analysis is of global trends. However, most excluded countries are very small in population and/or remote. Omitted countries include Andorra (population 80,856), Bermuda (population 64,698), and Seychelles (population 119,773). There are two former sovreign states present in the nutrition data, but not the GDP data: USSR and Yugoslavia. The exclusion of these countries was necessary due to a lack of consistent economic data and changes in political geography.
 
 Since we did not include every country in the GDP per capita data, our analysis may be limited. Furthermore, we only include years for which we had data from both the GDP per capita and food consumption data set.
 
