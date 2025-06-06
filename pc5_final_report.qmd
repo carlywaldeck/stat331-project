@@ -95,7 +95,7 @@ food_gdp <- left_join(food_summary, gdp_summary, by = "country")
 
 **Data Cleaning Process**
 
-The data on food consumption contains 16 fewer countries than the data on GDP per capita. Thus, when combining the data sets, we did not include those 16 countries. Additionally, the data on GDP per capita spans from 1800 to 2100 and has data in "k" units representing thousands. So, we converted all "k" units into 1000s. However, the data on food consumption spans from 1961 to 2018. So, to make sure the years for the data consistent, we only data from GDP per capita from 1961 to 2018. Finally, there are several observations that did not have data on the kilocalories consumed. So, we cleaned our data to only include the years where there was data.
+The data on food consumption contains 32 fewer countries than the data on GDP per capita, and the nutrition data has 2 countries not present in the GDP data. Thus, when combining the data sets, we did not include those 16 countries. Additionally, the data on GDP per capita spans from 1800 to 2100 and has data in "k" units representing thousands. So, we converted all "k" units into 1000s. However, the data on food consumption spans from 1961 to 2018. So, to make sure the years for the data consistent, we only data from GDP per capita from 1961 to 2018. Finally, there are several observations that did not have data on the kilocalories consumed. So, we cleaned our data to only include the years where there was data.
 
 *Data Cleaning Potential Impact*
 
@@ -152,7 +152,9 @@ data_joined <- gdp_longer |>
          country = as_factor(country))
 
 ```
-The graph below shows a scatterplot of the average of the log of GDP per Capita (log(GDP per Capita)) and the average of the log Food Consumption (log(Food Consumption))from 2012 to 2018. 
+
+The graph below shows a scatterplot of the average of the log of GDP per Capita (log(GDP per Capita)) and the average of the log Food Consumption (log(Food Consumption))from 2012 to 2018.
+
 ```{r}
 ## scatterplot with line of best fit
 ggplot(data = food_gdp, aes(x = log(average_gdp), y = log(avg_food))) +
@@ -174,8 +176,6 @@ The following animation shows how the relationship between log(Food Consumption)
 
 It can be seen that the relationship between log(GDP per Capita) and log(Food Consumption) initially is weak, positive, and linear, but evolves to a stronger, positive, linear relationship over time.
 
-
-
 ```{r, results='hide'}
 ## run linear regression
 model <- lm(log(avg_food) ~ log(average_gdp), data = food_gdp)
@@ -194,7 +194,8 @@ The expected natural logarithm of average food consumption is 6.895 when the nat
 
 ## Model Fit
 
-The table shows the model fit for the linear regression model. 
+The table shows the model fit for the linear regression model.
+
 ```{r}
 
 # find variance
