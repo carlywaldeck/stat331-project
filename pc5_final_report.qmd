@@ -322,4 +322,4 @@ Based on our regression model, we conclude that there is a positive association 
 
 \[6\] “World Bank Open Data,” World Bank Open Data. https://data.worldbank.org/indicator/NY.GDP.PCAP.PP.KD
 
-\[7\] A. Johnson, C. Waldeck, D. Roth, and J. Piini, "*stat331-project*," GitHub repository, \[Online\]. Available: <https://github.com/carlywaldeck/stat331-project>.
+\[7\] A. Johnson, C. Waldeck, D. Roth, and J. Piini, "*stat331-project*," GitHub repository, \[Online\]. Available: https://github.com/carlywaldeck/stat331-project.
